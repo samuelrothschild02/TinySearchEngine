@@ -1,0 +1,64 @@
+bash -v testing.sh
+#!/bin/bash
+# Testing script for querier.c
+# Author: Sam Rothschild -- based heavily on crawler test script provided for last lab
+# Date: Oct 2021
+#
+# usage: bash -v testing.sh or 'make test &> testing.out' to redirect into testing.out file
+
+# Variables:
+pageDir=/thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/toscrape-depth-2
+indexFile=/thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/wikipedia-index-1.s
+
+# Defensive tests:
+echo "Test 1: invalid crawler dir:"
+Test 1: invalid crawler dir:
+./querier ../libcs50 $indexFile
+Incorrect usage - invalid directory. Correct usage: ./indexer pageDir indexFilename
+
+echo "Test 2: illegible crawler dir:"
+Test 2: illegible crawler dir:
+./querier ../indexer/illegible $indexFile
+Incorrect usage - invalid directory. Correct usage: ./indexer pageDir indexFilename
+
+echo "Test 3: valid parameters with invalid and/or syntax (defined in lab spec):"
+Test 3: valid parameters with invalid and/or syntax (defined in lab spec):
+./querier $pageDir $indexFile < invalid.txt
+Error! or cannot be first
+Error! and cannot be first
+Error! and cannot be first
+Error! and cannot be first
+Error! and cannot be last
+Error! or cannot be first
+Error! or cannot be last
+Error! and or cannot be adjcent
+Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Query: Usage error -- invalid character: '?' in query.
+Query: Query: Usage error -- invalid character: '2' in query.
+Query: Query: Usage error -- invalid character: '-' in query.
+Query: Query: 
+
+echo "Erroneous test cases passed: now to test valid queries"
+Erroneous test cases passed: now to test valid queries
+
+echo "Test 4: valid parameters with valid queries:"
+Test 4: valid parameters with valid queries:
+./querier $pageDir $indexFile < valid.txt
+Query: Query: algol 
+Score: 4 Document: 1 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/index.html
+Score: 5 Document: 2 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/page-2.html
+Score: 6 Document: 8 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/maude-1883-1993she-grew-up-with-the-country_964/index.html
+Query: Query: Query: algol or bonfire 
+Score: 4 Document: 1 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/index.html
+Score: 5 Document: 2 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/page-2.html
+Score: 6 Document: 8 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/maude-1883-1993she-grew-up-with-the-country_964/index.html
+Query: Query: Query: algol or bonfire or bobcat 
+Score: 4 Document: 1 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/index.html
+Score: 5 Document: 2 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/page-2.html
+Score: 6 Document: 8 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/maude-1883-1993she-grew-up-with-the-country_964/index.html
+Query: Query: Query: algol and algorithm 
+Score: 1 Document: 1 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/index.html
+Score: 2 Document: 2 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/page-2.html
+Score: 6 Document: 8 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/maude-1883-1993she-grew-up-with-the-country_964/index.html
+Query: Query: Query: centralauth and centralautologin 
+Score: 1 Document: 1 URL: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/index.html
+Query: 

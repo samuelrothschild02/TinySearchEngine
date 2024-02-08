@@ -1,0 +1,100 @@
+gcc -Wall -pedantic -std=c11 -ggdb  -I../libcs50 -I../common   -c -o crawler.o crawler.c
+gcc -Wall -pedantic -std=c11 -ggdb  -I../libcs50 -I../common crawler.o ../common/pagedir.h ../common/pagedir.c ../libcs50/libcs50-given.a  -o crawler
+bash -v testing.sh
+
+
+# Testing script for crawler.c
+# Author: Temi Prioleau
+# Date: Oct 2021
+#
+# usage: bash -v testing.sh
+
+# Define variables
+seedURL=http://cs50tse.cs.dartmouth.edu/tse/letters/
+externalURL=www.google.com
+nonExistentServer=samcs50tsetest.com
+vsne=google.com/picture
+diffSeedPage1=http://cs50tse.cs.dartmouth.edu/tse/letters/B.html
+diffSeedPage2=http://cs50tse.cs.dartmouth.edu/tse/letters/D.html
+wikiURL=http://cs50tse.cs.dartmouth.edu/tse/wikipedia/
+
+#####################################
+### These tests should fail ###
+
+# 1 argument
+echo "Expect incorrect num of args:"
+Expect incorrect num of args:
+./crawler
+Usage error - incorrect number of arguments. Usage instructions: ./crawler seedURL pageDirectory maxDepth
+
+# 2 arguments
+echo "Expect incorrect num of args:"
+Expect incorrect num of args:
+./crawler $seedURL
+Usage error - incorrect number of arguments. Usage instructions: ./crawler seedURL pageDirectory maxDepth
+
+# 3 arguments
+echo "Expect incorrect num of args:"
+Expect incorrect num of args:
+./crawler $seedURL data
+Usage error - incorrect number of arguments. Usage instructions: ./crawler seedURL pageDirectory maxDepth
+
+# 4 arguments + externalURL
+echo "Expect external URL error:"
+Expect external URL error:
+./crawler $externalURL data 2
+Usage error - incorrect URL input. Usage instructions: URL must be internal
+
+# 4 arguments + non-existent server
+echo "Expect internal URL error"
+Expect internal URL error
+./crawler $nonExistentServer data 0
+Usage error - incorrect URL input. Usage instructions: URL must be internal
+
+# 4 arguments + valid server + non-existent page
+echo "Expect internal URL error"
+Expect internal URL error
+./crawler vsne data 0
+Usage error - incorrect URL input. Usage instructions: URL must be internal
+
+######################################
+### These tests should pass ####
+
+# at depth 0
+echo "First test that should pass:"
+First test that should pass:
+./crawler $seedURL data 0
+data/.crawler
+in page saver, url is http://cs50tse.cs.dartmouth.edu/tse/letters/
+in page saver, url is http://cs50tse.cs.dartmouth.edu/tse/letters/A.html
+echo "passed"
+passed
+
+# # at depth 2
+# echo "Second test that should pass:"
+# ./crawler $seedURL data 2
+# echo "passed"
+
+# # at depth 4
+# echo "Third test that should pass:"
+# ./crawler $seedURL data 4
+# echo "passed"
+
+# # different seed page in small linked sites:
+# echo "Fourth test that should pass:"
+# ./crawler $diffSeedPage1 data 3
+# echo "Passed"
+
+# # another different seed page in small linked sites:
+# ./crawler $diffSeedPage2 data 3
+# echo "Passed"
+
+# # Wiki url test with small depth:
+# echo "Fifth test that should pass:"
+# ./crawler wikiURL data 2
+# echo "Passed"
+
+# # Final test of wiki with higher depth:
+# echo "Sixth and final test that should pass:"
+# ./crawler wikiURL data 4
+# echo "Passed. Testing complete."

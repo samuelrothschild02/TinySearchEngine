@@ -1,0 +1,6 @@
+## Gitignore file for Common Directory in TSE CS50
+#
+*.o
+*.a
+core
+

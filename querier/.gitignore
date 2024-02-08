@@ -1,0 +1,5 @@
+## Gitignore file for Querier part of TSE
+*.o
+*.a
+indexer
+core

@@ -1,0 +1,5 @@
+## Gitignore file for Crawler part of TSE
+*.o
+*.a
+crawler
+core

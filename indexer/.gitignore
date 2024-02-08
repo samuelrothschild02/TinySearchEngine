@@ -1,0 +1,6 @@
+## Gitignore file for Indexer part of TSE
+*.o
+*.a
+indexer
+core
+
